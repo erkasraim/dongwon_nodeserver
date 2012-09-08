@@ -1,0 +1,92 @@
+/***********************************
+ * Common Style
+ ***********************************/
+* {margin: 0px; padding: 0px; font-size: 15px; letter-spacing: -1px; font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;}
+body {width: 100%; background-color: #fff;}
+body {-webkit-text-size-adjust: none; -webkit-user-select:none;}  /* Turn off font resizing */
+body {-webkit-touch-callout:none;}
+table {border-collapse: collapse;}
+table, th, tr, td {border: black 1px solid;}
+.sectionTitle {padding: 10px 16px; font-size: 15px; vertical-align:middle; color: #242c52; background: #F3F4F7 url("img/faq_title_bg.png") left bottom repeat-x;}
+ul,ol,li{list-style:none; }
+a {text-decoration: none; color: #000;}
+
+
+/***********************************
+ * Etc.
+ ***********************************/
+/* list.html */
+body#faq #contentWrapper {padding: 0px;}
+body#faq .cellContent {padding: 0px}
+
+	body#faq {background-color: #f4f4f4;}
+
+body#faq li {
+	height: 15px;
+	margin: 0px;
+	padding: 13px 0px 15px 6%;
+	text-align: left; 
+	border-collapse: collapse;
+	background-color: #f4f4f4;
+	vertical-align: middle;	
+	border-bottom: 1px solid #E7E7E7;
+}
+
+body#faq #info {
+	padding: 16px 5% 29px 5%;
+	font-size: 14px;
+	color: #414445;
+	line-height:19px; 
+}
+
+h2 {
+	padding: 13px 0px 15px 6%;
+	color: #6b88df;
+	height: 15px;
+	border-bottom: 1px solid #e7e7e7;
+	background: #FFFFFF;
+}
+
+div.title {
+	color: #414345;
+	height:15px;
+	font-size:15px;
+	letter-spacing:0px;
+	float:left;
+}
+
+div.noticeDetail { 
+	color: #6489df;
+}
+
+img.new {
+	width:18px;
+	height:18px;
+	padding: 0px 0px 5px 3px;
+	vertical-align: middle;
+}
+
+div.info {
+	background-color:#f4f4f4;
+}
+
+div.arrow {
+	float:right;
+	position:relative;
+	padding: 1px 10px 0px 0px;
+}
+
+img.arrow {
+	width : 9px;
+	height : 14px;
+	padding-bottom: 4px;
+}
+
+div.date {
+	height:11px;
+	font-size:11px;
+	color:#aaadb2;
+	letter-spacing:0px;
+	float:right;
+	padding: 1px 9px 0px 0px;
+}

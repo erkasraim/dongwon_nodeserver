@@ -1,0 +1,31 @@
+extends layout_admin
+
+block content
+  div#accordion2.accordion
+    each shop, key in shoplist
+      div.accordion-group
+        div.accordion-heading
+          a.accordion-toggle(data-toggle="collapse", data-parent="#accordion2", href="#collapseOne") #{shop.name} 
+           br
+           | #{shop.address}
+           br
+          input#phone-button.btn(type="submit", style="margin-left:15px", value="#{shop.phone}", onclick="javascript:phone();")
+          input#edit-button.btn(type="submit", style="margit-left:15px", value="edit", onclick="javascript:edit('#{shop._id}');")
+        div#collapseOne.accordion-body.collapse.in
+          div.accordion-inner
+            img(src="#{shop.imgUrl}")
+
+block scripts
+ script(type="text/javascript")
+  function phone() {
+    alert("phone test");
+    return false;
+  }
+  function edit(id) {
+    window.location = "/dongwon/shop/edit/"+id;
+    return false;
+  }
+  function newEntity() {
+    window.location = "/dongwon/shop/edit/new";
+    return false;
+  }

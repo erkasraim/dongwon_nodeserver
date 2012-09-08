@@ -1,0 +1,91 @@
+extends layout_admin
+
+block content
+ div.container
+  div.alert.alert-error.hide 매장정보 수정에 실패하였습니다. 입력정보를 다시 확인해주세요.
+  form#shopEditForm.form-horizontal(method="post", action="/dongwon/shop/edit")
+    fieldset
+      legend 매장 정보 수정
+      each shop, key in shoplist
+        input#_id.hide(name="_id", size="30", type="text", value="#{shop._id}")
+        div.control-group
+          label.control-label(for="name") 매장 이름
+          div.controls
+            input#name.xlarge(name="name", size="30", type="text", value="#{shop.name}")
+
+        div.control-group
+          label.control-label(for="address") 매장 주소
+          div.controls
+            input#address.xlarge.span3(name="address", size="100", type="text", value="#{shop.address}")
+
+        div.control-group
+          label.control-label(for="phone") 전화번호
+          div.controls
+            input#phone.xlarge(name="phone", size="30", type="text", value="#{shop.phone}")
+
+        div.control-group
+          label.control-label(for="imgUrl") 매장 지도 URL
+          div.controls
+            input#imgUrl.xlarge.span3(name="imgUrl", size="300", type="text", value="#{shop.imgUrl}")
+
+        div.form-actions
+          button.btn.btn-primary(type="submit", style="margin-right:5px") Save
+          button.btn(type="reset", onclick="javascript:back()") Cancel
+
+block scripts
+ script(type="text/javascript")
+   $(document).ready( function() {
+     $("form#shopEditForm").submit( function() {
+       var _id = $('#_id').attr('value');
+       var name = $('#name').attr('value');
+       var address = $('#address').attr('value');
+       var phone = $('#phone').attr('value');
+       var imgUrl = $('#imgUrl').attr('value');   
+       var result = $('.alert.alert-error');
+       var form = $(this);
+
+       var postUrl = '';
+       var data = null; 
+       if ('#{isNew}' == 'yes') {
+         postUrl="/dongwon/shop/new";
+         data = { "name":name, "address":address, "phone":phone, "imgUrl":imgUrl };
+       } else {
+         postUrl="/dongwon/shop/edit/"+_id;
+         data = { "name":name, "address":address, "phone":phone, "imgUrl":imgUrl, "_id":_id };
+       }
+
+       if (name && address && phone && imgUrl) {
+         $.ajax({
+           type:"POST",
+           url:postUrl
+           , data:data,
+           dataType: "json",
+           error: function(XMLHttpRequest, textStatus, errorThrown) {
+             result.text("responseText: " + XMLHttpRequest.responseText 
+            + ", textStatus: " + textStatus 
+            + ", errorThrown: " + errorThrown);
+           },
+           success: function(data){
+             if (data.error) { // script returned error
+               result.text(data.error);
+             } else { // successful
+               form.hide();
+               result.text(data.success);
+               result.removeClass("alert-error");
+               result.addClass("alert-success");
+               if(data.redirect != undefined) {
+                 setTimeout(function() {
+                   window.location = data.redirect;
+                 }, 1000);
+               }
+             }
+           }
+         });
+       } else {
+         result.text("빠짐없이 입력해주세요.");
+       }
+
+       result.fadeIn();
+       return false;
+     }); 
+   });
