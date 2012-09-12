@@ -1,7 +1,10 @@
-extends layout_admin
+- if (type == "admin")
+  include layout_admin
+- else
+  include layout_shop
 
-block content
-  div#accordion2.accordion
+//include layout_shop
+div#accordion2.accordion
     each shop, key in shoplist
       div.accordion-group
         div.accordion-heading
@@ -10,13 +13,14 @@ block content
            | #{shop.address}
            br
           input#phone-button.btn(type="submit", style="margin-left:15px", value="#{shop.phone}", onclick="javascript:phone();")
-          input#edit-button.btn(type="submit", style="margit-left:15px", value="edit", onclick="javascript:edit('#{shop._id}');")
+          - if (type == "admin")
+            input#edit-button.btn(type="submit", style="margit-left:15px", value="edit", onclick="javascript:edit('#{shop._id}');")
         div#collapseOne.accordion-body.collapse.in
           div.accordion-inner
             img(src="#{shop.imgUrl}")
 
-block scripts
- script(type="text/javascript")
+include bootstrap.js.jade
+script(type="text/javascript")
   function phone() {
     alert("phone test");
     return false;

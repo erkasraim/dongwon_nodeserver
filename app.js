@@ -50,8 +50,13 @@ app.get('/dongwon/shop/list', routes.shop.list);
 app.get('/dongwon/shop/edit/:id', routes.shop.edit);
 app.post('/dongwon/shop/edit/:id', routes.shop.update);
 app.post('/dongwon/shop/new', routes.shop.insert);
+app.get('/dongwon/notice/list', routes.notice.list);
+app.get('/dongwon/notice/edit/:id', routes.notice.edit);
+app.post('/dongwon/notice/edit/:id', routes.notice.update);
+app.post('/dongwon/notice/new', routes.notice.insert);
 //app.get('/dongwon/notice/list', routes.notice.list);
 //app.get('/dongwon/noticeDetail.html', routes.noticeDetail.index);
+
 app.get('/session', function(req, res) {
   req.session.message = "Hello World";
 });
