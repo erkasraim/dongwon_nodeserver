@@ -35,6 +35,8 @@ block content
 block scripts
  script(type="text/javascript")
    $(document).ready( function() {
+     var newButton = $('#new-button');
+     newButton.hide();
      $("form#shopEditForm").submit( function() {
        var _id = $('#_id').attr('value');
        var name = $('#name').attr('value');
