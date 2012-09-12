@@ -1,0 +1,15 @@
+- if (type == "admin")
+  include layout_admin
+- else
+  include layout_notice
+
+div.cellContent
+   ul
+    each notice, key in noticelist
+     a(href="edit/#{notice._id}")
+      li
+       div.title.list #{notice.title}
+       div.arrow
+        img.arrow(src="http://erkasraim.cafe24.com/dongwon/img/ico_arr_more.png")
+       div.date #{notice.regDttm}
+

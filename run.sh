@@ -9,18 +9,18 @@ fi
 
 start_func()
 {
-#	mkdir -p tmp/pids
-#	node app.js &  
-#	echo $! > tmp/pids/node_pid.log
-	forever start app.js
+	mkdir -p tmp/pids
+	node app.js &  
+	echo $! > tmp/pids/node_pid.log
+#	forever start app.js
 	echo "node server start~!";
 }
 
 stop_func()
 {
-#	pid="$(cat tmp/pids/node_pid.log)"
-#	kill -9 $pid;
-	forever stop 0
+	pid="$(cat tmp/pids/node_pid.log)"
+	kill -9 $pid;
+#	forever stop 0
 	echo "node server stop!!! pid : $pid";
 }
 
@@ -29,6 +29,8 @@ if [ $1 = "start" ]; then
 elif [ $1 = "stop" ]; then
 	stop_func;
 elif [ $1 = "restart" ]; then
-	forever restart 0;
+	stop_func;
+	start_func;
+#	forever restart 0;
 fi
 

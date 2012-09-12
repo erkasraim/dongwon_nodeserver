@@ -12,6 +12,25 @@ var ShopListSchema = new Schema({
 
 var ShopListModel = mongoose.model('shoplist', ShopListSchema);
 
+var NoticeSchema = new Schema({
+        title : String, // 공지사항
+        description : String, // 내용
+        regDttm : String, // 등록일자
+});
+var NoticeModel = mongoose.model('notice', NoticeSchema);
+
+var QnaSchema = new Schema({
+        title : String, // qna 제목
+        description : String, // 내용
+});
+var QnaModel = mongoose.model('qna', QnaSchema);
+
+var GoodSchema = new Schema({
+        title : String, // 제목
+        description : String, // 내용
+});
+var GoodModel = mongoose.model('good', GoodSchema);
+
 var MongoDB = module.exports = {
 	getShopList : function (callback) {
 		ShopListModel.find({}, callback);
@@ -33,4 +52,23 @@ var MongoDB = module.exports = {
 			, imgUrl:shop.imgUrl
 		}, callback);
 	}
+	, getNotice : function (callback) {
+                NoticeModel.find({}, callback);
+        }
+	, getNoticeById : function (id, callback) {
+                NoticeModel.find({_id:id}, callback);
+        }
+	, updateNoticeById : function (notice, callback) {
+                NoticeModel.update({title:notice.title
+			, description:notice.description
+                }, callback);
+        }
+	, insertNotice : function (notice, callback) {
+		var date = new Date();
+		var regDt = date.getFullYear() + '.' + date.getMonth()+1 + '.' + date.getDate();
+                NoticeModel.create({title:notice.title
+			, description:notice.description
+			, regDttm:regDt
+                }, callback);
+        }
 }
