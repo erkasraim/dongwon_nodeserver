@@ -1,0 +1,114 @@
+include layout_admin
+
+div.container
+  div.alert.alert-error.hide Q & A 수정에 실패하였습니다. 입력정보를 다시 확인해주세요.
+  form#qnaEditForm.form-horizontal(method="post", action="/qna")
+    fieldset
+      legend Q & A 수정
+      each qna, key in qnalist
+        input#_id.hide(name="_id", size="30", type="text", value="#{qna._id}")
+        div.control-group
+          label.control-label(for="title") 제목
+          div.controls
+            input#title.input-xxlarge(name="title", size="30", type="text", value="#{qna.title}")
+
+        div.control-group
+          label.control-label(for="description") 내용 
+          div.controls
+            textarea#description.span9(rows="5", name="description", type="text") #{qna.description}
+
+        div.form-actions
+          button.btn.btn-primary(type="submit", style="margin-right:5px") Save
+          button.btn(type="reset", onclick="javascript:back();") Cancel
+          button.btn.btn-danger( style="margin-left:5px", onclick="javascript:remove();") Delete
+
+include bootstrap.js.jade
+script(type="text/javascript")
+   function remove() {
+     var _id  = $('#_id').attr('value');
+     var postUrl = '/dongwon/qna/remove';
+     $.ajax({
+           type:"POST",
+           url:postUrl
+           , data:{"_id":_id},
+           dataType: "json",
+           error: function(XMLHttpRequest, textStatus, errorThrown) {
+             result.text("responseText: " + XMLHttpRequest.responseText
+            + ", textStatus: " + textStatus
+            + ", errorThrown: " + errorThrown);
+           },
+           success: function(data){
+             if (data.error) { // script returned error
+               result.text(data.error);
+             } else { // successful
+               form.hide();
+               result.text(data.success);
+               result.removeClass("alert-error");
+               result.addClass("alert-success");
+               if(data.redirect != undefined) {
+                 setTimeout(function() {
+                   window.location = data.redirect;
+                 }, 1000);
+               }
+             }
+           }
+     });
+     result.fadeIn();
+     return false;
+   }
+
+   $(document).ready( function() {
+     var newButton = $('#new-button');
+     newButton.hide();
+     $("form#qnaEditForm").submit( function() {
+       var _id = $('#_id').attr('value');
+       var title = $('#title').attr('value');
+       var description = $('#description').attr('value');
+       var result = $('.alert.alert-error');
+       var form = $(this);
+
+       var postUrl = '';
+       var data = null; 
+       if ('#{isNew}' == 'yes') {
+         postUrl="/dongwon/qna/new";
+         data = { "title":title, "description":description };
+       } else {
+         postUrl="/dongwon/qna/edit/"+_id;
+         data = { "title":title, "description":description, "_id":_id };
+       }
+
+       if (title && description) {
+         $.ajax({
+           type:"POST",
+           url:postUrl
+           , data:data,
+           dataType: "json",
+           error: function(XMLHttpRequest, textStatus, errorThrown) {
+             result.text("responseText: " + XMLHttpRequest.responseText 
+            + ", textStatus: " + textStatus 
+            + ", errorThrown: " + errorThrown);
+           },
+           success: function(data){
+             if (data.error) { // script returned error
+               result.text(data.error);
+             } else { // successful
+               form.hide();
+               result.text(data.success);
+               result.removeClass("alert-error");
+               result.addClass("alert-success");
+               if(data.redirect != undefined) {
+                 setTimeout(function() {
+                   window.location = data.redirect;
+                 }, 1000);
+               }
+             }
+           }
+         });
+       } else {
+         result.text("빠짐없이 입력해주세요.");
+       }
+
+       result.fadeIn();
+       return false;
+     }); 
+   });

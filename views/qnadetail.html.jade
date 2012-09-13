@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+html(xmlns="http://www.w3.org/1999/xhtml")
+ head
+  meta(http-equiv="content-type", content="text/html; charset=utf-8")
+  meta(name="viewport", content="width=320, user-scalable=no")
+  title Q & A
+  link(rel="stylesheet", href="http://erkasraim.cafe24.com/dongwon/css/qnaDetail.css", type="text/css")
+
+ body#faq
+  div
+    each qna, key in qnalist
+      h2
+        - if (type == "admin")
+          input#edit-button.btn(type="submit", style="float: right; margin-right: 20px; width: 90px; height: 35px;", value="edit", onclick="javascript:edit('#{qna._id}');")
+
+        div.icon
+          div.title.detail #{qna.title}
+      div#info
+          !{qna.description}
+
+script(type="text/javascript")
+  function edit(id) {
+    window.location = "/dongwon/qna/edit/"+id;
+    return false;
+  }
+

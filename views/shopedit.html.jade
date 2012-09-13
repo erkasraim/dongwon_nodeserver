@@ -1,7 +1,6 @@
-extends layout_admin
+include layout_admin
 
-block content
- div.container
+div.container
   div.alert.alert-error.hide 매장정보 수정에 실패하였습니다. 입력정보를 다시 확인해주세요.
   form#shopEditForm.form-horizontal(method="post", action="/dongwon/shop/edit")
     fieldset
@@ -32,8 +31,8 @@ block content
           button.btn.btn-primary(type="submit", style="margin-right:5px") Save
           button.btn(type="reset", onclick="javascript:back()") Cancel
 
-block scripts
- script(type="text/javascript")
+include bootstrap.js.jade
+script(type="text/javascript")
    $(document).ready( function() {
      var newButton = $('#new-button');
      newButton.hide();

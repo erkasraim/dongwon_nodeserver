@@ -1,0 +1,27 @@
+- if (type == "admin")
+  include layout_admin
+- else
+  include layout_qna
+
+table.table.table-striped  
+  tbody
+    each qna, key in qnalist
+      tr(onclick="javascript:detail('#{qna._id}');") 
+          td #{qna.title}
+          td #{qna.regDttm}
+
+include bootstrap.js.jade
+script(type="text/javascript")
+  function edit(id) {
+    window.location = "/dongwon/qna/edit/"+id;
+    return false;
+  }
+  function newEntity() {
+    window.location = "/dongwon/qna/edit/new";
+    return false;
+  }
+  function detail(id) {
+    window.location = "/dongwon/qna/detail/"+id+"?type=#{type}"
+    return false;
+  }
+

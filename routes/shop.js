@@ -8,7 +8,9 @@ exports.list = function(req, res) {
 				shoplist:docs 
 				, type:req.param("type")
 			});
-                }
+                } else {
+			res.send(err);
+		}
         });
 }
 

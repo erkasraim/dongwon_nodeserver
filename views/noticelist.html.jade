@@ -3,13 +3,25 @@
 - else
   include layout_notice
 
-div.cellContent
-   ul
+table.table.table-striped  
+  tbody
     each notice, key in noticelist
-     a(href="edit/#{notice._id}")
-      li
-       div.title.list #{notice.title}
-       div.arrow
-        img.arrow(src="http://erkasraim.cafe24.com/dongwon/img/ico_arr_more.png")
-       div.date #{notice.regDttm}
+      tr(onclick="javascript:detail('#{notice._id}');") 
+          td #{notice.title}
+          td #{notice.regDttm}
+
+include bootstrap.js.jade
+script(type="text/javascript")
+  function edit(id) {
+    window.location = "/dongwon/notice/edit/"+id;
+    return false;
+  }
+  function newEntity() {
+    window.location = "/dongwon/notice/edit/new";
+    return false;
+  }
+  function detail(id) {
+    window.location = "/dongwon/notice/detail/"+id+"?type=#{type}"
+    return false;
+  }
 
