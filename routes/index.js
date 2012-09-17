@@ -5,4 +5,5 @@ exports.index = function(req, res) {
 exports.shop = require('./shop');
 exports.notice = require('./notice');
 exports.qna = require('./qna');
+exports.good = require('./good');
 

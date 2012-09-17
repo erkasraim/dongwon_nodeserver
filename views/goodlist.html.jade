@@ -1,0 +1,28 @@
+- if (type == "admin")
+  include layout_admin
+- else
+  include layout_good
+
+table.table.table-striped  
+  tbody
+    each good, key in goodlist
+      tr(onclick="javascript:detail('#{good._id}');") 
+        td
+          i.icon-tags(style="padding-right: 7px;") 
+          | #{good.title}
+
+include bootstrap.js.jade
+script(type="text/javascript")
+  function edit(id) {
+    window.location = "/dongwon/good/edit/"+id;
+    return false;
+  }
+  function newEntity() {
+    window.location = "/dongwon/good/edit/new";
+    return false;
+  }
+  function detail(id) {
+    window.location = "/dongwon/good/detail/"+id+"?type=#{type}"
+    return false;
+  }
+

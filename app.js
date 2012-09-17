@@ -65,6 +65,13 @@ app.post('/dongwon/qna/new', routes.qna.insert);
 app.get('/dongwon/qna/detail/:id', routes.qna.detail);
 app.post('/dongwon/qna/remove', routes.qna.remove);
 
+app.get('/dongwon/good/list', routes.good.list);
+app.get('/dongwon/good/edit/:id', routes.good.edit);
+app.post('/dongwon/good/edit/:id', routes.good.update);
+app.post('/dongwon/good/new', routes.good.insert);
+app.get('/dongwon/good/detail/:id', routes.good.detail);
+app.post('/dongwon/good/remove', routes.good.remove);
+
 app.get('/session', function(req, res) {
   req.session.message = "Hello World";
 });

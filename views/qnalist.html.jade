@@ -7,8 +7,9 @@ table.table.table-striped
   tbody
     each qna, key in qnalist
       tr(onclick="javascript:detail('#{qna._id}');") 
-          td #{qna.title}
-          td #{qna.regDttm}
+        td
+          i.icon-search(style="padding-right: 7px;") 
+          | #{qna.title}
 
 include bootstrap.js.jade
 script(type="text/javascript")

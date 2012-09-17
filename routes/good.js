@@ -2,10 +2,10 @@ var mongoDB = require('../dao');
 
 exports.list = function(req, res) {
 	console.log("req.param: " + req.param("type"));
-	mongoDB.getQna ( function (err, docs) {
+	mongoDB.getGood ( function (err, docs) {
         	if(!err) {
-			res.render('qnalist.html.jade', { 
-				qnalist:docs 
+			res.render('goodlist.html.jade', { 
+				goodlist:docs 
 				, type:req.param("type")
 			});
                 }
@@ -13,22 +13,22 @@ exports.list = function(req, res) {
 }
 
 exports.edit = function(req, res) {
-	console.log("qna.edit / id : " + req.param("id"));
+	console.log("good.edit / id : " + req.param("id"));
 	if (req.param("id") == 'undefined') {
-		res.render('qnaedit.html.jade', {qna:'why call??'});
+		res.render('goodedit.html.jade', {good:'why call??'});
 		return;
 	}
-	mongoDB.getQnaById(req.param("id"), function( err, docs) {
+	mongoDB.getGoodById(req.param("id"), function( err, docs) {
 		if (!err) {
 			console.log(docs);
-			res.render('qnaedit.html.jade', {
-				qnalist: docs
+			res.render('goodedit.html.jade', {
+				goodlist: docs
 				, isNew:'no'
 			});
 		} else {
 			console.log('do not find id');
-			res.render('qnaedit.html.jade', {
-				qnalist: [{
+			res.render('goodedit.html.jade', {
+				goodlist: [{
 					_id:'new'
 					,title:''
 					,description:''
@@ -40,14 +40,14 @@ exports.edit = function(req, res) {
 }
 
 exports.update = function(req, res) {
-	console.log("qna update / id : " + req.body._id);
+	console.log("good update / id : " + req.body._id);
 	console.log("form info : " + req.body);
-	mongoDB.updateQnaById(req.body, function (err, docs) {
+	mongoDB.updateGoodById(req.body, function (err, docs) {
 		if (!err) {
 			console.log(docs);
 			var result = { 
-				"success" : "Q & A 수정에 성공하였습니다.",
-				"redirect" : "/dongwon/qna/list?type=admin" 
+				"success" : "칭찬히기 수정에 성공하였습니다.",
+				"redirect" : "/dongwon/good/list?type=admin" 
 			}
 			res.send(result);
 		}
@@ -55,14 +55,14 @@ exports.update = function(req, res) {
 }
 
 exports.insert = function(req, res) {
-	console.log("qna insert / id : " + req.body._id);
+	console.log("good insert / id : " + req.body._id);
 	console.log("form info : " + req.body);
-	mongoDB.insertQna(req.body, function (err, docs) {
+	mongoDB.insertGood(req.body, function (err, docs) {
 		if (!err) {
 			console.log(docs);
 			var result = { 
-				"success" : "Q & A 수정에 성공하였습니다.",
-				"redirect" : "/dongwon/qna/list?type=admin" 
+				"success" : "칭찬하기 수정에 성공하였습니다.",
+				"redirect" : "/dongwon/good/list?type=admin" 
 			}
 			res.send(result);
 		}
@@ -70,12 +70,12 @@ exports.insert = function(req, res) {
 }
 
 exports.detail = function(req, res) {
-	console.log("qna detail / id : " + req.param("id") + " / type :" + req.param("type"));
-	mongoDB.getQnaById(req.param("id"), function( err, docs) {
+	console.log("good detail / id : " + req.param("id") + " / type :" + req.param("type"));
+	mongoDB.getGoodById(req.param("id"), function( err, docs) {
                 if (!err) {
                         console.log(docs);
-                        res.render('qnadetail.html.jade', {
-                                qnalist: docs
+                        res.render('gooddetail.html.jade', {
+                                goodlist: docs
                                 , isNew:'no'
 				, type:req.param("type")
                         });
@@ -84,12 +84,12 @@ exports.detail = function(req, res) {
 }
 
 exports.remove = function(req, res) {
-	console.log("qna remove / id : " + req.body._id);
-	mongoDB.deleteQna(req.body._id, function (err, docs) {
+	console.log("good remove / id : " + req.body._id);
+	mongoDB.deleteGood(req.body._id, function (err, docs) {
 		if (!err) {
 			var result = {
                                 "success" : "삭제되었습니다.",
-                                "redirect" : "/dongwon/qna/list?type=admin"
+                                "redirect" : "/dongwon/good/list?type=admin"
                         }
                         res.send(result);
 		}

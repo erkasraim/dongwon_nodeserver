@@ -1,7 +1,6 @@
-extends layout_admin
+include layout_admin
 
-block content
-  div.container
+div.container
       div.alert.alert-error.hide 로그인에 실패했습니다. 사용자 ID/암호를 확인하세요.
       form#loginForm.form-horizontal(method="post", action="/dstudio/login")
         fieldset
@@ -17,7 +16,7 @@ block content
           div.form-actions
               button.btn.btn-primary(type="submit") Login
               button.btn(type="reset") Cancel
-  script(type="text/javascript")
+script(type="text/javascript")
     $(document).ready(function(){
       $('#userid').focus();
       $("form#loginForm").submit(function() { // loginForm is submitted
