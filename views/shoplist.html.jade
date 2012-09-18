@@ -16,7 +16,7 @@ div#accordion2.accordion
           input#phone-button.btn(type="submit", style="margin-left:15px", value="#{shop.phone}", onclick="javascript:phone('#{shop.phone}');")
           - if (type == "admin")
             input#edit-button.btn(type="submit", style="margit-left:15px", value="edit", onclick="javascript:edit('#{shop._id}');")
-        div#!{collapse}.accordion-body.collapse.in
+        div.accordion-body.collapse.in(id='#{collapse}')
           div.accordion-inner
             img(src="#{shop.imgUrl}")
 
