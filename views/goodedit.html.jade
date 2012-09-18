@@ -4,7 +4,7 @@ div.container
   div.alert.alert-error.hide 실패하였습니다. 입력정보를 다시 확인해주세요.
   form#goodEditForm.form-horizontal(method="post", action="/good")
     fieldset
-      legend 칭찬합시다 수정
+      legend 칭찬합시다
       each good, key in goodlist
         input#_id.hide(name="_id", size="30", type="text", value="#{good._id}")
         div.control-group
@@ -20,7 +20,8 @@ div.container
         div.form-actions
           button.btn.btn-primary(type="submit", style="margin-right:5px") Save
           button.btn(type="reset", onclick="javascript:back();") Cancel
-          button.btn.btn-danger( style="margin-left:5px", onclick="javascript:remove();") Delete
+          - if (type == 'admin')
+            button.btn.btn-danger( style="margin-left:5px", onclick="javascript:remove();") Delete
 
 include bootstrap.js.jade
 script(type="text/javascript")

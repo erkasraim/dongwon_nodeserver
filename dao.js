@@ -54,6 +54,9 @@ var MongoDB = module.exports = {
 			, imgUrl:shop.imgUrl
 		}, callback);
 	}
+	, deleteShop : function (id, callback) {
+                ShopListModel.find({_id:id}).remove(callback);
+        }
 	, getNotice : function (callback) {
 		NoticeModel.find({}).limit(20).sort('regDttm', -1).exec(callback);
         }

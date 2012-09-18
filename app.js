@@ -17,7 +17,7 @@ app.configure(function(){
   app.set('db-uri', 'mongodb://localhost/dongwon');
   app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use(express.bodyParser());
+  app.use(express.bodyParser({uploadDir: __dirname + '/tmp/upload'}));
   app.use(express.cookieParser());
   app.use(express.methodOverride());
   app.use(app.router);
@@ -50,6 +50,7 @@ app.get('/dongwon/shop/list', routes.shop.list);
 app.get('/dongwon/shop/edit/:id', routes.shop.edit);
 app.post('/dongwon/shop/edit/:id', routes.shop.update);
 app.post('/dongwon/shop/new', routes.shop.insert);
+app.post('/dongwon/shop/remove', routes.shop.remove);
 
 app.get('/dongwon/notice/list', routes.notice.list);
 app.get('/dongwon/notice/edit/:id', routes.notice.edit);
@@ -71,6 +72,9 @@ app.post('/dongwon/good/edit/:id', routes.good.update);
 app.post('/dongwon/good/new', routes.good.insert);
 app.get('/dongwon/good/detail/:id', routes.good.detail);
 app.post('/dongwon/good/remove', routes.good.remove);
+
+app.get('/dongwon/upload', routes.upload.get);
+app.post('/dongwon/upload', routes.upload.post);
 
 app.get('/session', function(req, res) {
   req.session.message = "Hello World";

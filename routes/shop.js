@@ -26,6 +26,7 @@ exports.edit = function(req, res) {
 			res.render('shopedit.html.jade', {
 				shoplist: docs
 				, isNew:'no'
+				, type:req.param("type")
 			});
 		} else {
 			console.log('do not find id');
@@ -38,6 +39,7 @@ exports.edit = function(req, res) {
 					,imgUrl:''
 				}]
 				, isNew:'yes'
+				, type:req.param("type")
 			});
 		}
 	});
@@ -67,6 +69,19 @@ exports.insert = function(req, res) {
 			var result = { 
 				"success" : "매장정보 수정에 성공하였습니다.",
 				"redirect" : "/dongwon/shop/list?type=admin" 
+			}
+			res.send(result);
+		}
+	});
+}
+
+exports.remove = function(req, res) {
+	console.log("shop remove / id : " + req.body._id);
+	mongoDB.deleteShop(req.body._id, function (err, docs) {
+		if(!err) {
+			var result = {
+				"success" : "삭제되었습니다.",
+				"redirect" : "/dongwon/notice/list?type=admin"
 			}
 			res.send(result);
 		}

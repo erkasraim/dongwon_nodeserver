@@ -1,0 +1,10 @@
+include layout_admin
+
+- if(images.length)
+ul
+  - images.forEach(function(image){
+    li
+      p Upload file name is #{image.name} and Size is #{image.size}kb
+    li
+      p Upload file path : http://erkasraim.cafe24.com/dongwon/upload/#{image.name}
+  - })

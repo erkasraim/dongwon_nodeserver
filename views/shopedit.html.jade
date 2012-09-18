@@ -30,9 +30,43 @@ div.container
         div.form-actions
           button.btn.btn-primary(type="submit", style="margin-right:5px") Save
           button.btn(type="reset", onclick="javascript:back()") Cancel
+          button.btn.btn-danger( style="margin-left:5px", onclick="javascript:remove();") Delete
 
 include bootstrap.js.jade
 script(type="text/javascript")
+   function remove() {
+     var _id = $('#_id').attr('value');
+     var postUrl = '/dongwon/shop/remove';
+     $.ajax({
+           type:"POST",
+           url:postUrl
+           , data:{"_id":_id},
+           dataType: "json",
+           error: function(XMLHttpRequest, textStatus, errorThrown) {
+             result.text("responseText: " + XMLHttpRequest.responseText
+            + ", textStatus: " + textStatus
+            + ", errorThrown: " + errorThrown);
+           },
+           success: function(data){
+             if (data.error) { // script returned error
+               result.text(data.error);
+             } else { // successful
+               form.hide();
+               result.text(data.success);
+               result.removeClass("alert-error");
+               result.addClass("alert-success");
+               if(data.redirect != undefined) {
+                 setTimeout(function() {
+                   window.location = data.redirect;
+                 }, 1000);
+               }
+             }
+           }
+     });
+     result.fadeIn();
+     return false;
+   }
+
    $(document).ready( function() {
      var newButton = $('#new-button');
      newButton.hide();

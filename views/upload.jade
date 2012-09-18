@@ -1,0 +1,14 @@
+include layout_admin
+
+div.container
+  div.alert.alert-error.hide 업로드 실패.
+  form#uploadForm.form-horizontal(action='/dongwon/upload', method='post', enctype='multipart/form-data')
+    fieldset
+      legend 파일 업로드
+      div.control-group
+          label.control-label(for="filepath") 업로드 파일
+          div.controls
+            input#filepath.xlarge.span3(type='file', name='imgs', multiple="")
+      div.form-actions
+          button.btn.btn-primary(type='submit', style="margin-right:5px;") Upload
+          button.btn(type="reset", onclick="javascript:back();") Cancel

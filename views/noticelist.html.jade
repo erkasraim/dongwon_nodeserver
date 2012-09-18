@@ -7,7 +7,7 @@ table.table.table-striped
   tbody
     each notice, key in noticelist
       tr(onclick="javascript:detail('#{notice._id}');") 
-          td 
+          td(style="line-height: 30px;") 
             i.icon-volume-up(style="padding-right: 7px;")
             | #{notice.title}
           td #{notice.regDttm}

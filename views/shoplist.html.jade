@@ -6,23 +6,24 @@
 //include layout_shop
 div#accordion2.accordion
     each shop, key in shoplist
+      - var collapse = 'collapse'+key
       div.accordion-group
         div.accordion-heading
-          a.accordion-toggle(data-toggle="collapse", data-parent="#accordion2", href="#collapseOne") #{shop.name} 
+          a.accordion-toggle(data-toggle="collapse", data-parent="#accordion2", href="#collapse#{key}") #{shop.name} 
            br
            | #{shop.address}
            br
-          input#phone-button.btn(type="submit", style="margin-left:15px", value="#{shop.phone}", onclick="javascript:phone();")
+          input#phone-button.btn(type="submit", style="margin-left:15px", value="#{shop.phone}", onclick="javascript:phone('#{shop.phone}');")
           - if (type == "admin")
             input#edit-button.btn(type="submit", style="margit-left:15px", value="edit", onclick="javascript:edit('#{shop._id}');")
-        div#collapseOne.accordion-body.collapse.in
+        div#!{collapse}.accordion-body.collapse.in
           div.accordion-inner
             img(src="#{shop.imgUrl}")
 
 include bootstrap.js.jade
 script(type="text/javascript")
-  function phone() {
-    alert("phone test");
+  function phone(phone) {
+    window.location = "tel:"+phone
     return false;
   }
   function edit(id) {

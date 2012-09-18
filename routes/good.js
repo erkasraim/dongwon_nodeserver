@@ -24,6 +24,7 @@ exports.edit = function(req, res) {
 			res.render('goodedit.html.jade', {
 				goodlist: docs
 				, isNew:'no'
+				, type:req.param("type")
 			});
 		} else {
 			console.log('do not find id');
@@ -34,6 +35,7 @@ exports.edit = function(req, res) {
 					,description:''
 				}]
 				, isNew:'yes'
+				, type:req.param("type")
 			});
 		}
 	});

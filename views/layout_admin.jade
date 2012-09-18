@@ -6,15 +6,13 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(name="description", content="")
     meta(name="author", content="")
-    link(rel="stylesheet", href="http://erkasraim.cafe24.com/css/bootstrap.css", type="text/css")
-    link(rel="stylesheet", href="http://erkasraim.cafe24.com/css/bootstrap-responsive.css", type="text/css")
-    link(rel="stylesheet", href="http://erkasraim.cafe24.com/css/docs.css", type="text/css")
+    link(rel="stylesheet", href="/dongwon/css/bootstrap.css", type="text/css")
+    link(rel="stylesheet", href="/dongwon/css/docs.css", type="text/css")
 
   body(data-spy="scroll", data-target=".subnav", data-offset="50", data-rendering="true")
     div.navbar.navbar-fixed-top
       div.navbar-inner
         div.container
-          a.btn.btn-navbar(data-toggle="collapse",data-target=".nav-collapse")
           a.brand(href="#") Dongwon Telecom
           div.nav-collapse
             ul.nav
@@ -30,4 +28,5 @@ html
                 a(href="/dongwon/good/list?type=admin") 칭찬합시다 
               li
                 a(href="/dongwon/about") About
-    input#new-button.btn.btn-large.btn-info(style="float:right; width:100px;", type="button", value="New", onclick="javascript:newEntity();")
+    - if (type == 'admin')
+      input#new-button.btn.btn-large.btn-info(style="float:right; width:100px;", type="button", value="New", onclick="javascript:newEntity();")
