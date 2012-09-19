@@ -3,6 +3,7 @@ var util = require('util')
 
 exports.get = function(req, res) {
 	res.render('upload', {
+		type:req.param('type')
 	});
 }
 
@@ -34,6 +35,7 @@ exports.post = function(req, res){
         console.log('->> render');
         res.render('uploadshow', { title: 'Show'
                             ,images: images
+			    , type:req.param('type')
         });
 //    }else{
 //        res.render('error', { title: 'Error'

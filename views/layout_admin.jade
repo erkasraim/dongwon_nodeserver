@@ -13,7 +13,7 @@ html
     div.navbar.navbar-fixed-top
       div.navbar-inner
         div.container
-          a.brand(href="#") Dongwon Telecom
+          a.brand(href="/dongwon") Dongwon Telecom
           div.nav-collapse
             ul.nav
               li
@@ -26,6 +26,8 @@ html
                 a(href="/dongwon/qna/list?type=admin") Q & A
               li 
                 a(href="/dongwon/good/list?type=admin") 칭찬합시다 
+              li
+                a(href="/dongwon/upload?type=admin") File Upload
               li
                 a(href="/dongwon/about") About
     - if (type == 'admin')
