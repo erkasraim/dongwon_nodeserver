@@ -49,7 +49,7 @@ exports.update = function(req, res) {
 			console.log(docs);
 			var result = { 
 				"success" : "칭찬히기 수정에 성공하였습니다.",
-				"redirect" : "/dongwon/good/list?type=admin" 
+				"redirect" : "/dongwon/good/list?type="+req.body.type 
 			}
 			res.send(result);
 		}
@@ -64,7 +64,7 @@ exports.insert = function(req, res) {
 			console.log(docs);
 			var result = { 
 				"success" : "칭찬하기 수정에 성공하였습니다.",
-				"redirect" : "/dongwon/good/list?type=admin" 
+				"redirect" : "/dongwon/good/list?type="+req.body.type 
 			}
 			res.send(result);
 		}

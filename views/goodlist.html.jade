@@ -7,7 +7,7 @@ table.table.table-striped
   tbody
     each good, key in goodlist
       tr(onclick="javascript:detail('#{good._id}');") 
-        td
+        td(style="line-height:30px;")
           i.icon-tags(style="padding-right: 7px;") 
           | #{good.title}
 
