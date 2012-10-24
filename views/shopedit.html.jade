@@ -28,15 +28,18 @@ div.container
             input#imgUrl.xlarge.span3(name="imgUrl", size="300", type="text", value="#{shop.imgUrl}")
 
         div.form-actions
-          button.btn.btn-primary(type="submit", style="margin-right:5px") Save
+          button#btn_save.btn.btn-primary(type="button", style="margin-right:5px") Save
           button.btn(type="reset", onclick="javascript:back()") Cancel
-          button.btn.btn-danger( style="margin-left:5px", onclick="javascript:remove();") Delete
+          button#btn_remove.btn.btn-danger(type="button", style="margin-left:5px") Delete
 
 include bootstrap.js.jade
 script(type="text/javascript")
-   function remove() {
+   $('#btn_remove').click(function remove(event) {
      var _id = $('#_id').attr('value');
      var postUrl = '/dongwon/shop/remove';
+     var result = $('.alert.alert-error');
+     var form = $(this);
+
      $.ajax({
            type:"POST",
            url:postUrl
@@ -48,6 +51,7 @@ script(type="text/javascript")
             + ", errorThrown: " + errorThrown);
            },
            success: function(data){
+             console.debug(data);
              if (data.error) { // script returned error
                result.text(data.error);
              } else { // successful
@@ -64,13 +68,14 @@ script(type="text/javascript")
            }
      });
      result.fadeIn();
-     return false;
-   }
+   });
 
    $(document).ready( function() {
      var newButton = $('#new-button');
      newButton.hide();
-     $("form#shopEditForm").submit( function() {
+   });
+
+   $('#btn_save').click(function save() {
        var _id = $('#_id').attr('value');
        var name = $('#name').attr('value');
        var address = $('#address').attr('value');
@@ -121,6 +126,4 @@ script(type="text/javascript")
        }
 
        result.fadeIn();
-       return false;
-     }); 
    });

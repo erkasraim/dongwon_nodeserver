@@ -81,7 +81,7 @@ exports.remove = function(req, res) {
 		if(!err) {
 			var result = {
 				"success" : "삭제되었습니다.",
-				"redirect" : "/dongwon/notice/list?type=admin"
+				"redirect" : "/dongwon/shop/list?type=admin"
 			}
 			res.send(result);
 		}
