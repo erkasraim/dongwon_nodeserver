@@ -86,12 +86,12 @@ exports.detail = function(req, res) {
 }
 
 exports.remove = function(req, res) {
-	console.log("good remove / id : " + req.body._id);
+	console.log("good remove / id : " + req.body._id + ", type : " + req.body.type);
 	mongoDB.deleteGood(req.body._id, function (err, docs) {
 		if (!err) {
 			var result = {
                                 "success" : "삭제되었습니다.",
-                                "redirect" : "/dongwon/good/list?type=admin"
+                                "redirect" : "/dongwon/good/list?type="+req.body.type
                         }
                         res.send(result);
 		}

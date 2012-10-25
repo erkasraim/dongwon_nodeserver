@@ -18,15 +18,18 @@ div.container
             textarea#description.span9(rows="5", name="description", type="text") #{notice.description}
 
         div.form-actions
-          button.btn.btn-primary(type="submit", style="margin-right:5px") Save
-          button.btn(type="reset", onclick="javascript:back();") Cancel
-          button.btn.btn-danger( style="margin-left:5px", onclick="javascript:remove();") Delete
+          button#btn_save.btn.btn-primary(type="button", style="margin-right:5px") Save
+          button.btn(type="reset", onclick="javascript:back()") Cancel
+          button#btn_remove.btn.btn-danger(type="button", style="margin-left:5px") Delete
 
 include bootstrap.js.jade
 script(type="text/javascript")
-   function remove() {
+   $('#btn_remove').click(function remove(event) {
      var _id  = $('#_id').attr('value');
      var postUrl = '/dongwon/notice/remove';
+     var result = $('.alert.alert-error');
+     var form = $("#noticeEditForm");
+
      $.ajax({
            type:"POST",
            url:postUrl
@@ -54,18 +57,19 @@ script(type="text/javascript")
            }
      });
      result.fadeIn();
-     return false;
-   }
+   });
 
    $(document).ready( function() {
      var newButton = $('#new-button');
      newButton.hide();
-     $("form#noticeEditForm").submit( function() {
+   });
+
+   $('#btn_save').click(function save() { 
        var _id = $('#_id').attr('value');
        var title = $('#title').attr('value');
        var description = $('#description').attr('value');
        var result = $('.alert.alert-error');
-       var form = $(this);
+       var form = $("#noticeEditForm");
 
        var postUrl = '';
        var data = null; 
@@ -109,6 +113,4 @@ script(type="text/javascript")
        }
 
        result.fadeIn();
-       return false;
-     }); 
    });

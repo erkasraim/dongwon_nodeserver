@@ -38,7 +38,7 @@ script(type="text/javascript")
      var _id = $('#_id').attr('value');
      var postUrl = '/dongwon/shop/remove';
      var result = $('.alert.alert-error');
-     var form = $(this);
+     var form = $("#shopEditForm");
 
      $.ajax({
            type:"POST",
@@ -82,7 +82,7 @@ script(type="text/javascript")
        var phone = $('#phone').attr('value');
        var imgUrl = $('#imgUrl').attr('value');   
        var result = $('.alert.alert-error');
-       var form = $(this);
+       var form = $("#shopEditForm");
 
        var postUrl = '';
        var data = null; 

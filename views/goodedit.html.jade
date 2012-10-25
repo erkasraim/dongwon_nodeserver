@@ -18,10 +18,10 @@ div.container
             textarea#description.span9(rows="5", name="description", type="text") #{good.description}
 
         div.form-actions
-          button.btn.btn-primary(type="submit", style="margin-right:5px") Save
-          button.btn(type="reset", onclick="javascript:back();") Cancel
+          button#btn_save.btn.btn-primary(type="button", style="margin-right:5px") Save
+          button.btn(type="reset", onclick="javascript:back()") Cancel
           - if (type == 'admin')
-            button.btn.btn-danger( style="margin-left:5px", onclick="javascript:remove();") Delete
+            button#btn_remove.btn.btn-danger(type="button", style="margin-left:5px") Delete
 
 include bootstrap.js.jade
 script(type="text/javascript")
@@ -37,10 +37,12 @@ script(type="text/javascript")
      }
    }
 
-   function remove() {
+   $('#btn_remove').click(function remove(event) {
      var _id  = $('#_id').attr('value');
-     //var type = #{type};
+     var type = "#{type}";
      var postUrl = '/dongwon/good/remove';
+     var result = $('.alert.alert-error');
+     var form = $("#goodEditForm");
      $.ajax({
            type:"POST",
            url:postUrl
@@ -68,27 +70,29 @@ script(type="text/javascript")
            }
      });
      result.fadeIn();
-     return false;
-   }
+   });
 
    $(document).ready( function() {
      var newButton = $('#new-button');
      newButton.hide();
-     $("form#goodEditForm").submit( function() {
+   });
+
+   $('#btn_save').click(function save() {
        var _id = $('#_id').attr('value');
+       var type = "#{type}";
        var title = $('#title').attr('value');
        var description = $('#description').attr('value');
        var result = $('.alert.alert-error');
-       var form = $(this);
+       var form = $("#goodEditForm");
 
        var postUrl = '';
        var data = null; 
        if ('#{isNew}' == 'yes') {
          postUrl="/dongwon/good/new";
-         data = { "title":title, "description":description };
+         data = { "type":type, "title":title, "description":description };
        } else {
          postUrl="/dongwon/good/edit/"+_id;
-         data = { "title":title, "description":description, "_id":_id };
+         data = { "type":type, "title":title, "description":description, "_id":_id };
        }
 
        if (title && description) {
@@ -123,6 +127,4 @@ script(type="text/javascript")
        }
 
        result.fadeIn();
-       return false;
-     }); 
    });
