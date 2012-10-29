@@ -18,27 +18,37 @@ exports.edit = function(req, res) {
 		res.render('goodedit.html.jade', {good:'why call??'});
 		return;
 	}
-	mongoDB.getGoodById(req.param("id"), function( err, docs) {
-		if (!err) {
-			console.log(docs);
-			res.render('goodedit.html.jade', {
-				goodlist: docs
-				, isNew:'no'
-				, type:req.param("type")
-			});
-		} else {
-			console.log('do not find id');
-			res.render('goodedit.html.jade', {
-				goodlist: [{
-					_id:'new'
-					,title:''
-					,description:''
-				}]
-				, isNew:'yes'
-				, type:req.param("type")
-			});
-		}
-	});
+
+	mongoDB.getShopList ( function (err, shoplist) {
+                if(!err) {
+			mongoDB.getGoodById(req.param("id"), function( err, docs) {
+                		if (!err) {
+                        		console.log(docs);
+                        		res.render('goodedit.html.jade', {
+                                		goodlist: docs
+                                		, isNew:'no'
+						, shoplist: shoplist
+                                		, type:req.param("type")
+                        		});
+                		} else {
+                        		console.log('do not find id');
+                        		res.render('goodedit.html.jade', {
+                                		goodlist: [{
+                                        		_id:'new'
+                                        		,title:''
+                                        		,description:''
+                                		}]
+                                		, isNew:'yes'
+						, shoplist: shoplist
+                                		, type:req.param("type")
+                        		});
+                		}
+        		});
+
+                } else {
+                        res.send(err);
+                }
+        });
 }
 
 exports.update = function(req, res) {
