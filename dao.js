@@ -30,6 +30,8 @@ var GoodSchema = new Schema({
         title : String, // 제목
         description : String, // 내용
 	regDttm : String,
+	shopinfo : Number,
+	shopname : String,
 });
 var GoodModel = mongoose.model('good', GoodSchema);
 
@@ -41,7 +43,7 @@ var MongoDB = module.exports = {
 		ShopListModel.find({_id:id}, callback);
 	},
 	updateShopListById : function (shop, callback) {
-		ShopListModel.update({name:shop.name
+		ShopListModel.update({_id:shop._id}, {name:shop.name
 			, address:shop.address 
 			, phone:shop.phone
 			, imgUrl:shop.imgUrl
@@ -64,7 +66,7 @@ var MongoDB = module.exports = {
                 NoticeModel.find({_id:id}, callback);
         }
 	, updateNoticeById : function (notice, callback) {
-                NoticeModel.update({title:notice.title
+                NoticeModel.update({_id:notice._id}, {title:notice.title
 			, description:notice.description
                 }, callback);
         }
@@ -90,7 +92,7 @@ var MongoDB = module.exports = {
                 QnaModel.find({_id:id}, callback);
         }
         , updateQnaById : function (qna, callback) {
-                QnaModel.update({title:qna.title
+                QnaModel.update({_id:qna._id}, {title:qna.title
                         , description:qna.description
                 }, callback);
         }
@@ -111,8 +113,10 @@ var MongoDB = module.exports = {
                 GoodModel.find({_id:id}, callback);
         }
         , updateGoodById : function (good, callback) {
-                GoodModel.update({title:good.title
+                GoodModel.update({_id:good._id}, {title:good.title
                         , description:good.description
+			, shopinfo:good.shopinfo
+			, shopname:good.shopname
                 }, callback);
         }
         , insertGood : function (good, callback) {
@@ -120,6 +124,8 @@ var MongoDB = module.exports = {
                 GoodModel.create({title:good.title
                         , description:good.description
                         , regDttm:date.getTime()
+			, shopinfo:good.shopinfo
+			, shopname:good.shopname
                 }, callback);
         }
 	, deleteGood : function (id, callback) {

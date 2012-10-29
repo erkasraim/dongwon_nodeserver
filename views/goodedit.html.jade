@@ -1,4 +1,7 @@
-include layout_admin
+- if (type == "admin")
+  include layout_admin
+- else
+  include layout_good
 
 div.container
   div.alert.alert-error.hide 실패하였습니다. 입력정보를 다시 확인해주세요.
@@ -15,9 +18,12 @@ div.container
         div.control-group
           label.control-label(for="description") 매장
           div.controls
-            select
+            select#shopinfo
               each shop, key in shoplist
-                option #{shop.name}
+                - if (key == good.shopinfo)
+                  option(value="#{shop.name}", selected="selected") #{shop.name}
+                - else
+                  option(value="#{shop.name}") #{shop.name}
 
         div.control-group
           label.control-label(for="description") 내용 
@@ -32,6 +38,10 @@ div.container
 
 include bootstrap.js.jade
 script(type="text/javascript")
+   $("#description").focus(function( event ) {
+     window.scrollTo(100, 1000);
+   });
+
    function enterKey(e) {
      var evt = e || window.event;
      if (evt.keyCode == 13) {
@@ -91,15 +101,18 @@ script(type="text/javascript")
        var description = $('#description').attr('value');
        var result = $('.alert.alert-error');
        var form = $("#goodEditForm");
+       var shop = document.getElementById("shopinfo");
+       var shopselect = shop.selectedIndex;
+       var shopname = shop.value;
 
        var postUrl = '';
        var data = null; 
        if ('#{isNew}' == 'yes') {
          postUrl="/dongwon/good/new";
-         data = { "type":type, "title":title, "description":description };
+         data = { "shopname":shopname, "shopinfo":shopselect, "type":type, "title":title, "description":description };
        } else {
          postUrl="/dongwon/good/edit/"+_id;
-         data = { "type":type, "title":title, "description":description, "_id":_id };
+         data = { "shopname":shopname, "shopinfo":shopselect, "type":type, "title":title, "description":description, "_id":_id };
        }
 
        if (title && description) {

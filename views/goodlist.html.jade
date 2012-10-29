@@ -9,7 +9,7 @@ table.table.table-striped
       tr(onclick="javascript:detail('#{good._id}');") 
         td(style="line-height:30px;")
           i.icon-tags(style="padding-right: 7px;") 
-          | #{good.title}
+          | [#{good.shopname}] #{good.title}
 
 include bootstrap.js.jade
 script(type="text/javascript")
@@ -18,7 +18,7 @@ script(type="text/javascript")
     return false;
   }
   function newEntity() {
-    window.location = "/dongwon/good/edit/new";
+    window.location = "/dongwon/good/edit/new?type=#{type}";
     return false;
   }
   function detail(id) {

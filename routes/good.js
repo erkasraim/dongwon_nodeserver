@@ -37,6 +37,7 @@ exports.edit = function(req, res) {
                                         		_id:'new'
                                         		,title:''
                                         		,description:''
+							,shopinfo:0
                                 		}]
                                 		, isNew:'yes'
 						, shoplist: shoplist
